@@ -2,11 +2,11 @@ import streamlit as st
 import pickle
 import numpy as np
 
-# Load model
+
 with open("model.pkl", "rb") as f:
     model = pickle.load(f)
 
-# Sidebar: Instructions and Tech Stack
+
 st.sidebar.title("📋 Instructions")
 st.sidebar.markdown("""
 1. Enter your personal and health metrics using the sliders and dropdowns.
@@ -46,7 +46,7 @@ with st.expander("📘 Learn About the Parameters"):
         - 2: Downsloping
     """)
 
-# Inputs
+
 age = st.slider("Age", 20, 80, 30)
 sex = st.selectbox("Sex", ["Male", "Female"])
 cp = st.selectbox("Chest Pain Type (cp)", [0, 1, 2, 3])
@@ -61,14 +61,14 @@ slope = st.selectbox("Slope of peak exercise ST segment", [0, 1, 2])
 ca = st.slider("Number of major vessels (0–3) colored by fluoroscopy", 0, 3, 0)
 thal = st.selectbox("Thalassemia (1 = normal; 2 = fixed defect; 3 = reversable defect)", [1, 2, 3])
 
-# Convert input
+
 sex_val = 1 if sex == "Male" else 0
 
-# Prepare input array
+
 input_data = np.array([[age, sex_val, cp, trestbps, chol, fbs, restecg, thalach, exang,
                         oldpeak, slope, ca, thal]])
 
-# Prediction
+
 if st.button("Check Risk"):
     prediction = model.predict(input_data)[0]
     if prediction == 1:
